@@ -1,0 +1,31 @@
+version: '3'
+services:
+  # By default the gRPC servers are listening at port 8061,
+  # according to AI4EU specifications.
+  # We can distinguish servers by host, defined by the service name
+  # See https://docs.docker.com/compose/networking/
+  image-source:
+    image: sipgisr/image-source:latest
+    volumes:
+    - type: bind
+      source: ./images/
+      target: /workspace/images/
+  
+  component:
+    image: component
+    ports : 
+    - "8061:8061"
+  visualization:
+    image: sipgisr/image-visualization:latest
+    # Only port visible outside the docker environment
+    # to see the images in the web
+    ports:
+    - "8062:8062"
+  orchestrator-node:
+    image: sipgisr/grpc-orchestrator:latest
+    volumes: 
+    - type: bind
+      source: C:/Users/Mathieu/Desktop/Stage_Lisbonne/Component
+      target: /app/config
+    environment:
+      CONFIG_FILE: "config/configuration.yaml"

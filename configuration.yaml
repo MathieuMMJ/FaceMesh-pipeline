@@ -1,0 +1,31 @@
+stages:
+  - name: "Estimate"
+    host: component
+    port: 8061
+    method: estimate
+
+  - name: "EstimateImg"
+    host: component
+    port: 8061
+    method: estimateImg
+
+  - name: "Visualization"
+    host: visualization
+    port: 8061
+
+  - name : "Source"
+    host : image-source
+    port : 8061
+    method : GetStream
+
+links:
+  - source:
+      stage: "EstimateImg"
+
+    target:
+      stage: "Visualization"
+  - source:
+      stage: "Source"
+
+    target : 
+      stage: "EstimateImg"

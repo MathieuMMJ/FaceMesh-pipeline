@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+service OpenPoseEstimator {
+    rpc estimate(Image) returns (Poses) ;
+    rpc estimateImg(Image) returns (Image) ; 
+}
+
+/*
+ * Image to analyse
+ * param data: bytes of the image file
+ *             encoded in some image format
+ */
+message Image {
+    bytes data = 1;
+}
+
+message Poses {
+    repeated Pose poses = 1 ; 
+}
+
+
+/*
+ * Message to represent a human pose
+ * param key_points: detected keypoints for the pose
+ */
+message Pose {
+    repeated KeyPoint key_points = 1;
+}
+
+/*
+ * Message to represent a body part within
+ * the pose representation
+ * param x: x coordinate of the keypoint
+ * param y: y coordinate of the keypoint
+ * param z: z coordinate of the keypoint
+ */
+message KeyPoint {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}

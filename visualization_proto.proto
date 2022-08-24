@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service ImageVisualizationService {
+    rpc Visualize(Image) returns (Empty);
+}
+
+/*
+ * Image to analyse
+ * param data: bytes of the image file
+ *             encoded in some image format
+ */
+message Image {
+    bytes data = 1;
+}
+
+message Empty {}
